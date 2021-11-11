@@ -36,9 +36,48 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
+//    @PostMapping("/add")
+    public String addItemV1(@RequestParam String itemName,
+                       @RequestParam int price,
+                       @RequestParam Integer quantity,
+                       Model model){
+
+        Item item = new Item();
+        item.setItemName(itemName);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+
+        itemRepository.save(item);
+
+        model.addAttribute("item", item);
+
+        return "basic/item";
+    }
+
+//    @PostMapping("/add")
+    public String addItemV2(@ModelAttribute("item") Item item){
+
+        itemRepository.save(item);
+
+//        model.addAttribute("item", item); //자동 추가 생성
+
+        return "basic/item";
+    }
+
+//    @PostMapping("/add")
+    public String addItemV3(@ModelAttribute Item item){
+
+        itemRepository.save(item);
+
+//        model.addAttribute("item", item); //자동 추가 생성
+
+        return "basic/item";
+    }
+
     @PostMapping("/add")
-    public String save(){
-        return "xxx";
+    public String addItemV4(Item item){
+        itemRepository.save(item);
+        return "basic/item";
     }
 
     @PutMapping("/{itemId}/edit")
